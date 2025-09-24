@@ -1,0 +1,26 @@
+class Solution {
+public:
+   int numUniqueEmails(vector<string>& emails) {
+        unordered_set<string> uniqueEmails;
+        
+        for (string email : emails) {
+            string local, domain;
+            int atPos = email.find('@');
+            local = email.substr(0, atPos);
+            domain = email.substr(atPos);
+
+             int plusPos = local.find('+');
+            if (plusPos != string::npos) {
+                local = local.substr(0, plusPos);
+            }
+
+            local.erase(remove(local.begin(), local.end(), '.'), local.end());
+
+            string normalized = local + domain;
+            uniqueEmails.insert(normalized);
+          }
+
+        return uniqueEmails.size();
+    }
+        
+    };
